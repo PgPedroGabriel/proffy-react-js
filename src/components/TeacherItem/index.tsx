@@ -11,20 +11,27 @@ interface TeacherItemProps {
   imageSrc: string;
   subject: string;
   shortDescription: string;
+  whatsapp: string;
 }
 
-const TeacherItem: React.FC<TeacherItemProps> = ({name, subject, description, price, shortDescription, imageSrc}) => {
-  
-  
-  const numberFormated = useMemo( () => {
-
+const TeacherItem: React.FC<TeacherItemProps> = ({
+  name,
+  whatsapp, 
+  subject,
+  description,
+  price,
+  shortDescription,
+  imageSrc,
+}) => {
+  const numberFormated = useMemo(() => {
     return Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
     }).format(price);
+  }, [price]);
 
-  },[price]);
-  
+
+
   return (
     <article className="teacher-item">
       <header>
@@ -47,13 +54,13 @@ const TeacherItem: React.FC<TeacherItemProps> = ({name, subject, description, pr
           Preço/Hora
           <strong>{numberFormated}</strong>
         </p>
-        <button type="button">
-          <img src={whatsappIcon} alt="whataspp" />
+        <a type="button" href={`https://wa.me/${whatsapp}`}>
+          <img src={whatsappIcon} alt="ícone do whatsapp" />
           Enviar mensagem
-        </button>
+        </a>
       </footer>
     </article>
   );
-}
+};
 
 export default TeacherItem
